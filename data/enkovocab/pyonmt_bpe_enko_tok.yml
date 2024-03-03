@@ -1,0 +1,11 @@
+type: OpenNMTTokenizer
+params:
+   joiner_annotate: true
+   mode: aggressive
+   no_substitution: true
+   segment_alphabet_change: true
+   segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+   bpe_model_path: pyonmt_bpe_enko_32k_min2
+   segment_numbers: true
+   preserve_segmented_tokens: true
+   support_prior_joiners: true

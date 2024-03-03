@@ -1,0 +1,10 @@
+pyyaml==6.0
+babel==2.12.1
+numpy==1.21.1
+tensorflow==2.8.0
+tensorflow_addons==0.16.1
+OpenNMT-tf==2.32.0
+ctranslate2
+sacrebleu
+rouge
+pyonmttok

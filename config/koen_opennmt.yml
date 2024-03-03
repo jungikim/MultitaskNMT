@@ -1,0 +1,149 @@
+model_dir: run/koen_opennmt/
+
+params:
+  optimizer: LazyAdam
+  optimizer_params:
+    beta_1: 0.9
+    beta_2: 0.998
+  learning_rate: 2.0
+  regularization:
+    type: l2
+    scale: 1e-4
+  average_loss_in_time: true
+  mask_loss_outliers: false
+  decay_type: NoamDecay
+  decay_params:
+    model_dim: 768
+    warmup_steps: 8000
+  label_smoothing: 0.1
+  beam_width: 1
+  num_hypotheses: 1
+  coverage_penalty: 0.0
+
+train:
+  batch_size: 768
+  batch_type: tokens
+  effective_batch_size: 65536
+  save_checkpoints_steps: 500
+  keep_checkpoint_max: 1000 #it will keep all the previous models 0 and -1 gave an error message :
+  save_summary_steps: 100
+  max_step: null
+  single_pass: false
+  maximum_features_length: 512
+  maximum_labels_length: 512
+  length_bucket_width: 1
+  sample_buffer_size: 500000
+  average_last_checkpoints: 0
+
+eval:
+  batch_size: 128
+  batch_type: examples
+  steps: 500
+  scorers: bleu
+  save_eval_predictions: true
+
+infer:
+  batch_size: 128
+  batch_type: examples
+
+score:
+  batch_size: 128
+  batch_type: examples
+
+
+data:
+  source_vocabulary: data/enkovocab/pyonmt_bpe_enko_32k_min2_casemarkup.vocab
+  target_vocabulary: data/enkovocab/pyonmt_bpe_enko_32k_min2_casemarkup.vocab
+
+  source_tokenization:
+    type: OpenNMTTokenizer
+    params:
+      joiner_annotate: true
+      mode: aggressive
+      no_substitution: true
+      segment_alphabet_change: true
+      segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+      bpe_model_path: data/enkovocab/pyonmt_bpe_enko_32k_min2.model
+      segment_numbers: true
+      preserve_segmented_tokens: true
+      support_prior_joiners: true
+      case_markup: true
+      segment_case: true
+      preserve_placeholders: true
+
+  target_tokenization:
+    type: OpenNMTTokenizer
+    params:
+      joiner_annotate: true
+      mode: aggressive
+      no_substitution: true
+      segment_alphabet_change: true
+      segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+      bpe_model_path: data/enkovocab/pyonmt_bpe_enko_32k_min2.model
+      segment_numbers: true
+      preserve_segmented_tokens: true
+      support_prior_joiners: true
+      case_markup: true
+      segment_case: true
+      preserve_placeholders: true
+
+  source_sequence_controls:
+    start: true
+    end: true
+
+  target_sequence_controls:
+    start: true
+    end: true
+
+  eval_features_file: data/enko/testset/flores200-mttt-tatoeba20210807-dev.ko
+  eval_labels_file:   data/enko/testset/flores200-mttt-tatoeba20210807-dev.en
+
+  train_features_file:
+    - data/enko/opus/CCMatrix.en-ko.ko.gz
+    - data/enko/opus/CCAligned.en-ko.ko.gz
+    - data/enko/opus/LinguaTools-WikiTitles.en-ko.ko.gz
+    - data/enko/opus/ParaCrawl.en-ko.ko.gz
+    - data/enko/opus/XLEnt.en-ko.ko.gz
+    - data/enko/opus/OpenSubtitles.en-ko.ko.gz
+    - data/enko/opus/QED.en-ko.ko.gz
+    - data/enko/opus/TED2020.en-ko.ko.gz
+    - data/enko/opus/WikiMatrix.en-ko.ko.gz
+    - data/enko/opus/NeuLab-TedTalks.en-ko.ko.gz
+    - data/enko/opus/wikimedia.en-ko.ko.gz
+    - data/enko/opus/Tanzil.en-ko.ko.gz
+    - data/enko/opus/KDE4.en-ko.ko.gz
+    - data/enko/opus/bible-uedin.en-ko.ko.gz
+    - data/enko/opus/PHP.en-ko.ko.gz
+    - data/enko/opus/GlobalVoices.en-ko.ko.gz
+    - data/enko/opus/Tatoeba.en-ko.ko.gz
+    - data/enko/opus/ELRC-3070-wikipedia_health.en-ko.ko.gz
+    - data/enko/opus/ELRC-wikipedia_health.en-ko.ko.gz
+    - data/enko/opus/ELRC_2922.en-ko.ko.gz
+    - data/enko/opus/Ubuntu.en-ko.ko.gz
+    - data/enko/opus/GNOME.en-ko.ko.gz
+    - data/enko/mttt/mttt_train_en-ko.raw.ko.gz
+
+  train_labels_file:
+    - data/enko/opus/CCMatrix.en-ko.en.gz
+    - data/enko/opus/CCAligned.en-ko.en.gz
+    - data/enko/opus/LinguaTools-WikiTitles.en-ko.en.gz
+    - data/enko/opus/ParaCrawl.en-ko.en.gz
+    - data/enko/opus/XLEnt.en-ko.en.gz
+    - data/enko/opus/OpenSubtitles.en-ko.en.gz
+    - data/enko/opus/QED.en-ko.en.gz
+    - data/enko/opus/TED2020.en-ko.en.gz
+    - data/enko/opus/WikiMatrix.en-ko.en.gz
+    - data/enko/opus/NeuLab-TedTalks.en-ko.en.gz
+    - data/enko/opus/wikimedia.en-ko.en.gz
+    - data/enko/opus/Tanzil.en-ko.en.gz
+    - data/enko/opus/KDE4.en-ko.en.gz
+    - data/enko/opus/bible-uedin.en-ko.en.gz
+    - data/enko/opus/PHP.en-ko.en.gz
+    - data/enko/opus/GlobalVoices.en-ko.en.gz
+    - data/enko/opus/Tatoeba.en-ko.en.gz
+    - data/enko/opus/ELRC-3070-wikipedia_health.en-ko.en.gz
+    - data/enko/opus/ELRC-wikipedia_health.en-ko.en.gz
+    - data/enko/opus/ELRC_2922.en-ko.en.gz
+    - data/enko/opus/Ubuntu.en-ko.en.gz
+    - data/enko/opus/GNOME.en-ko.en.gz
+    - data/enko/mttt/mttt_train_en-ko.raw.en.gz

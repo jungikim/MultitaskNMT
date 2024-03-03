@@ -1,0 +1,201 @@
+
+cat > pyonmt_bpe_defr_tok.yml << EOL
+type: OpenNMTTokenizer
+params:
+   joiner_annotate: true
+   mode: aggressive
+   no_substitution: true
+   segment_alphabet_change: true
+   segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+   bpe_model_path: pyonmt_bpe_enko_32k_min2
+   segment_numbers: true
+   preserve_segmented_tokens: true
+   support_prior_joiners: true
+EOL
+
+yes | onmt-build-vocab --tokenizer_config pyonmt_bpe_defr_tok.yml --size 32000 --save_vocab pyonmt_bpe_defr_32k_min2.vocab \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_0.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_1.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_2.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__tatoeba.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Environment__EEA-GEMET-environment-definitions.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Finance__TildeModel-EESC.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__DGT-TM.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2008.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2009.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2010.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2011.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2012.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2013.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2014.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2015.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2016.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2017.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2018.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2019.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2020.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__JRC-Acquis.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Medical__ECDC-TM.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Medical__EMEA-Annexes.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__OPUS-WikiMedia.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_0.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_1.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_2.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_3.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_4.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_5.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_6.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_7.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_8.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_News__Casmacat-GlobalVoices.de \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_Legal__Crawl2022-parlament-ch.de \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_Misc__Crawl2022.de \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_News__SwissAdmin-press-releases-20140611.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Dialog__TAUS-Idioms.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Dialog__ted-talks-fbk-r2.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Finance__Crawl2022.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Finance__OPUS-ECB.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__msdn-ui-strings.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__msdn-vs2005.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__OPUS-KDE4.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__TAUS-all-IT_0.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__TAUS-all-IT_1.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Manual__TAUS-IndMan-StrDoc.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Medical__MSD-Merck-Manual.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Medical__OPUS-EMEA.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Misc__Crawl2022.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Misc__WikiMatrix.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_News__france-blog-info.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_News__news-commentary.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-abstracts.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-claims.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-titles.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Proceedings__DCEP.de \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Proceedings__europarl.de \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.de \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_Generic__enwiki-namespaces.de \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_IT__microsoft-localization.de \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.de \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__enwiki-namespaces.de \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__Lookup-finaldict.de \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.de \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__enwiki-namespaces.de \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__Lookup-finaldict.de \
+ de_fr/train_synthetic/gene_2dir_de-CH-fr-CH_Generic__currency-ISO.de \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-daymonth.de \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-prep.de \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-short.de \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-version-nodate.de \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-versionnumber.de \
+ de_fr/train_synthetic/gene_2dir_de-XX-fr-YY_Misc__Formality-veuillez-merci-de.de \
+ de_fr/train_synthetic/gene_defr_de-XX-fr-YY_Generic__PN9-lingsynlist-money-currency-symbol.de \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Generic__money-currency-symbol.de \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Misc__Formality-coordination.de \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Misc__Formality-subordination.de \
+ de_fr/train_synthetic/term_2dir_de-DE-fr-FR_Generic__20200505-PN9-lingsynlist-number-general.de \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Generic__number-digits.de \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Generic__number-ordinal.de \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Names__20220930-PN9-person-names.de \
+ de_fr/train_synthetic/term_defr_de-XX-fr-YY_Misc__abbreviations.de \
+ de_fr/train_synthetic/term_frde_de-DE-fr-FR_Generic__20200505-PN9-lingsynlist-number-paragraph.de \
+ de_fr/train_synthetic/term_frde_de-XX-fr-YY_Misc__abbreviations.de \
+ de_fr/train/term_2dir_de-XX-fr-YY_Environment__EEA-GEMET-environment-labels.de \
+ de_fr/train/term_2dir_de-XX-fr-YY_Generic__IATE-EU-Terms.de \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_0.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_1.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__OPUS-OpenSubtitles_2.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Dialog__tatoeba.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Environment__EEA-GEMET-environment-definitions.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Finance__TildeModel-EESC.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__DGT-TM.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2008.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2009.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2010.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2011.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2012.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2013.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2014.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2015.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2016.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2017.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2018.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2019.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__EUR-Lex-2020.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Legal__JRC-Acquis.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Medical__ECDC-TM.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Medical__EMEA-Annexes.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__OPUS-WikiMedia.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_0.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_1.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_2.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_3.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_4.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_5.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_6.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_7.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_Misc__paracrawl_8.fr \
+ de_fr/train/btxt_2dir_de-XX-fr-YY_News__Casmacat-GlobalVoices.fr \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_Legal__Crawl2022-parlament-ch.fr \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_Misc__Crawl2022.fr \
+ de_fr/train_restricted/btxt_2dir_de-CH-fr-CH_News__SwissAdmin-press-releases-20140611.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Dialog__TAUS-Idioms.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Dialog__ted-talks-fbk-r2.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Finance__Crawl2022.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Finance__OPUS-ECB.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__msdn-ui-strings.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__msdn-vs2005.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__OPUS-KDE4.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__TAUS-all-IT_0.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_IT__TAUS-all-IT_1.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Manual__TAUS-IndMan-StrDoc.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Medical__MSD-Merck-Manual.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Medical__OPUS-EMEA.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Misc__Crawl2022.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Misc__WikiMatrix.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_News__france-blog-info.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_News__news-commentary.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-abstracts.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-claims.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Patent__patents-titles.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Proceedings__DCEP.fr \
+ de_fr/train_restricted/btxt_2dir_de-XX-fr-YY_Proceedings__europarl.fr \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.fr \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_Generic__enwiki-namespaces.fr \
+ de_fr/train_restricted/term_2dir_de-XX-fr-YY_IT__microsoft-localization.fr \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.fr \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__enwiki-namespaces.fr \
+ de_fr/train_restricted/term_defr_de-XX-fr-YY_Generic__Lookup-finaldict.fr \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__enwiki-freebase-all-titles.fr \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__enwiki-namespaces.fr \
+ de_fr/train_restricted/term_frde_de-XX-fr-YY_Generic__Lookup-finaldict.fr \
+ de_fr/train_synthetic/gene_2dir_de-CH-fr-CH_Generic__currency-ISO.fr \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-daymonth.fr \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-prep.fr \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-dates-short.fr \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-version-nodate.fr \
+ de_fr/train_synthetic/gene_2dir_de-DE-fr-FR_Generic__20210115-PN9-lingsynlist-versionnumber.fr \
+ de_fr/train_synthetic/gene_2dir_de-XX-fr-YY_Misc__Formality-veuillez-merci-de.fr \
+ de_fr/train_synthetic/gene_defr_de-XX-fr-YY_Generic__PN9-lingsynlist-money-currency-symbol.fr \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Generic__money-currency-symbol.fr \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Misc__Formality-coordination.fr \
+ de_fr/train_synthetic/gene_frde_de-XX-fr-YY_Misc__Formality-subordination.fr \
+ de_fr/train_synthetic/term_2dir_de-DE-fr-FR_Generic__20200505-PN9-lingsynlist-number-general.fr \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Generic__number-digits.fr \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Generic__number-ordinal.fr \
+ de_fr/train_synthetic/term_2dir_de-XX-fr-YY_Names__20220930-PN9-person-names.fr \
+ de_fr/train_synthetic/term_defr_de-XX-fr-YY_Misc__abbreviations.fr \
+ de_fr/train_synthetic/term_frde_de-DE-fr-FR_Generic__20200505-PN9-lingsynlist-number-paragraph.fr \
+ de_fr/train_synthetic/term_frde_de-XX-fr-YY_Misc__abbreviations.fr \
+ de_fr/train/term_2dir_de-XX-fr-YY_Environment__EEA-GEMET-environment-labels.fr \
+ de_fr/train/term_2dir_de-XX-fr-YY_Generic__IATE-EU-Terms.fr
+
+#for i in enko/testset/flores200-mttt-tatoeba20210807-{test,dev}.{en,ko} ; do
+#  cat $i | onmt-tokenize-text --tokenizer_config pyonmt_bpe_enko_tok.yml > ${i}.pyonmt_bpe_tok ;
+#done
+
+
+
+
+
+
+

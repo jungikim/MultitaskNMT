@@ -1,0 +1,171 @@
+model_dir: run/indo-pacific_multitasknmt_bug-en/
+
+params:
+  optimizer: LazyAdam
+  optimizer_params:
+    beta_1: 0.9
+    beta_2: 0.998
+  learning_rate: 2.0
+  regularization:
+    type: l2
+    scale: 1e-4
+  average_loss_in_time: true
+  mask_loss_outliers: false
+  decay_type: NoamDecay
+  decay_params:
+    model_dim: 768
+    warmup_steps: 8000
+  label_smoothing: 0.1
+  beam_width: 1
+  num_hypotheses: 1
+  coverage_penalty: 0.0
+
+train:
+  batch_size: 768
+  batch_type: tokens
+  effective_batch_size: 65536
+  maximum_features_length: 512
+  maximum_labels_length: 512
+  length_bucket_width: 1
+  sample_buffer_size: 500000
+  average_last_checkpoints: 0
+  max_step: null
+  single_pass: false
+  save_summary_steps: 100
+  save_checkpoints_steps: 500
+  keep_checkpoint_max: 9999
+
+eval:
+  batch_size: 32
+  batch_type: examples
+  length_bucket_width: 5
+  steps: 500
+  scorers: bleu
+  save_eval_predictions: true
+infer:
+  batch_size: 32
+  batch_type: examples
+  length_bucket_width: 5
+score:
+  batch_size: 64
+  batch_type: examples
+  length_bucket_width: 5
+
+data:
+  source_vocabulary: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2.vocab.sentineltoks
+  target_vocabulary: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2.vocab.sentineltoks
+
+  source_tokenization:
+    type: OpenNMTTokenizer
+    params:
+      bpe_model_path: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2
+      vocabulary_path: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2.vocab.sentineltoks
+      joiner_annotate: true
+      mode: aggressive
+      preserve_placeholders: true
+      preserve_segmented_tokens: true
+      segment_case: false
+      segment_numbers: true
+      segment_alphabet_change: true
+      segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+      no_substitution: true
+      support_prior_joiners: true
+  target_tokenization:
+    type: OpenNMTTokenizer
+    params:
+      bpe_model_path: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2
+      vocabulary_path: data/Indo-Pacific_vocab/pyonmt_bpe_indo-pacific_32k_min2.vocab.sentineltoks
+      joiner_annotate: true
+      mode: aggressive
+      preserve_placeholders: true
+      preserve_segmented_tokens: true
+      segment_case: false
+      segment_numbers: true
+      segment_alphabet_change: true
+      segment_alphabet: ["Han", "Kanbun", "Katakana", "Hiragana"]
+      no_substitution: true
+      support_prior_joiners: true
+
+  source_sequence_controls:
+    start: true
+    end: true
+
+  target_sequence_controls:
+    start: true
+    end: true
+
+  eval_features_file: data/Indo-Pacific/flores-200/dev/dev.bug
+  eval_labels_file:   data/Indo-Pacific/flores-200/dev/dev.en
+
+  train_features_file:
+    - data/Indo-Pacific/bilingual/en-bug/NLLB.bug-en.bug.gz
+    - data/Indo-Pacific/bilingual/en-bug/QED.bug-en.bug.gz
+    - data/Indo-Pacific/bilingual/en-bug/wikimedia.bug-en.bug.gz
+    - data/Indo-Pacific/bilingual/en-bug/NLLB.bug-en.bug.gz
+    - data/Indo-Pacific/bilingual/en-bug/QED.bug-en.bug.gz
+    - data/Indo-Pacific/bilingual/en-bug/wikimedia.bug-en.bug.gz
+    -
+    -
+    -
+    - data/Indo-Pacific/monolingual/bug/NLLB_v1_bug.txt.gz
+    - data/Indo-Pacific/monolingual/bug/QED_v2.0a_bug.txt.gz
+    - data/Indo-Pacific/monolingual/bug/wikimedia_v20230407_bug.txt.gz
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - data/Indo-Pacific/bilingual/ceb-bug/NLLB.bug-ceb.bug.gz
+    - data/Indo-Pacific/bilingual/id-bug/wikimedia.bug-id.bug.gz
+    - data/Indo-Pacific/bilingual/ilo-bug/NLLB.bug-ilo.bug.gz
+    - data/Indo-Pacific/bilingual/jv-bug/NLLB.bug-jv.bug.gz
+    - data/Indo-Pacific/bilingual/su-bug/NLLB.bug-su.bug.gz
+
+
+  train_labels_file:
+    - data/Indo-Pacific/bilingual/en-bug/NLLB.bug-en.en.gz
+    - data/Indo-Pacific/bilingual/en-bug/QED.bug-en.en.gz
+    - data/Indo-Pacific/bilingual/en-bug/wikimedia.bug-en.en.gz
+    -
+    -
+    -
+    - data/Indo-Pacific/bilingual/en-bug/NLLB.bug-en.en.gz
+    - data/Indo-Pacific/bilingual/en-bug/QED.bug-en.en.gz
+    - data/Indo-Pacific/bilingual/en-bug/wikimedia.bug-en.en.gz
+    -
+    -
+    -
+    - data/Indo-Pacific/monolingual/en/news.2007.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2008.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2009.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2010.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2011.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2012.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2013.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2014.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2015.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2016.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2017.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2018.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2019.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2020.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2021.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/news.2022.en.shuffled.deduped.gz
+    - data/Indo-Pacific/monolingual/en/NLLB_v1_en.txt.gz
+    - 
+    - 
+    - 
+    - 
+    - 
